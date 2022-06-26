@@ -4,11 +4,13 @@
     <el-table-column prop="name" label="Name" width="180" />
     <el-table-column prop="address" label="Address" />
   </el-table>
-  <el-button @click="handle">导出</el-button>
+  <el-button @click="handle">导出csv</el-button>
+  <el-button @click="handleXLSX">导出xlsx</el-button>
 </template>
 
 <script lang="ts" setup>
 import { GenerateCSV } from 'utils/excel/csv'
+import { GenerateXLSX } from 'utils/excel/xlsx'
 
 const tableData = [
   {
@@ -32,6 +34,13 @@ const tableData = [
     address: 'No. 189-Grove St-Los Angeles'
   }
 ]
+
+const handleXLSX = () =>
+  GenerateXLSX(tableData, [
+    { name: '时间', key: 'date' },
+    { name: '姓名', key: 'name' },
+    { name: '地址', key: 'address' }
+  ])
 
 const handle = () =>
   GenerateCSV(tableData, [
